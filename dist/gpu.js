@@ -1,5 +1,7 @@
 import { ScreenPostProcess } from "./postProcess.js";
 let canvas = document.getElementById("renderer");
+canvas.width = Math.min(window.innerHeight, window.innerWidth);
+canvas.height = canvas.width;
 let engine = new BABYLON.Engine(canvas);
 engine.loadingScreen.displayLoadingUI();
 let scene = new BABYLON.Scene(engine);
@@ -8,6 +10,18 @@ let freeCamera = new BABYLON.FreeCamera("freeCamera", new BABYLON.Vector3(0, 0, 
 scene.activeCamera = freeCamera;
 // The important line
 let pp = new ScreenPostProcess("emitters", freeCamera, scene);
+function updateSources() {
+    let i = 0;
+    for (let element of document.querySelectorAll("#ui>div")) {
+        let vector = [];
+        element.querySelectorAll("input").forEach(inputElement => {
+            vector.push(parseFloat(inputElement.value));
+        });
+        pp.sources[i][1] = BABYLON.Vector4.FromArray(vector);
+        i++;
+    }
+}
+updateSources();
 //#endregion
 let interval = 0;
 let pause = false;
@@ -44,3 +58,6 @@ scene.executeWhenReady(() => {
     }, 1000 / 60);
     //engine.runRenderLoop = () => scene.render();
 });
+for (let inputElement of document.querySelectorAll("input")) {
+    inputElement.addEventListener("change", () => updateSources());
+}
