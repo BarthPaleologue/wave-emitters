@@ -1,5 +1,6 @@
 # emitters
 
+[![NodeJS with Webpack](https://github.com/BarthPaleologue/wave-emitters/actions/workflows/webpack.yml/badge.svg)](https://github.com/BarthPaleologue/wave-emitters/actions/workflows/webpack.yml)
 [![pages-build-deployment](https://github.com/BarthPaleologue/wave-emitters/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/BarthPaleologue/wave-emitters/actions/workflows/pages/pages-build-deployment)
 [![CodeQL](https://github.com/BarthPaleologue/wave-emitters/actions/workflows/codeql.yml/badge.svg)](https://github.com/BarthPaleologue/wave-emitters/actions/workflows/codeql.yml)
 [![License](https://img.shields.io/github/license/BarthPaleologue/wave-emitters)](./LICENSE)
