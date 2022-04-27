@@ -1,17 +1,19 @@
-import { ScreenPostProcess } from "./postProcess.js";
+import { Engine, Scene, Vector3, Color4, FreeCamera, Vector4, Tools } from "@babylonjs/core";
+
+import { ScreenPostProcess } from "./postProcess";
 
 let canvas = document.getElementById("renderer") as HTMLCanvasElement;
 
 canvas.width = Math.min(window.innerHeight, window.innerWidth);
 canvas.height = canvas.width;
 
-let engine = new BABYLON.Engine(canvas);
+let engine = new Engine(canvas);
 engine.loadingScreen.displayLoadingUI();
 
-let scene = new BABYLON.Scene(engine);
-scene.clearColor = new BABYLON.Color4(0, 0, 0, 1);
+let scene = new Scene(engine);
+scene.clearColor = new Color4(0, 0, 0, 1);
 
-let freeCamera = new BABYLON.FreeCamera("freeCamera", new BABYLON.Vector3(0, 0, -200), scene);
+let freeCamera = new FreeCamera("freeCamera", new Vector3(0, 0, -200), scene);
 scene.activeCamera = freeCamera;
 
 // The important line
@@ -24,7 +26,7 @@ function updateSources() {
         element.querySelectorAll("input").forEach(inputElement => {
             vector.push(parseFloat(inputElement.value));
         });
-        pp.sources[i][1] = BABYLON.Vector4.FromArray(vector);
+        pp.sources[i][1] = Vector4.FromArray(vector);
         i++;
     }
 }
@@ -37,7 +39,7 @@ let pause = false;
 
 document.addEventListener("keydown", e => {
     if (e.key == "p") { // take screenshots
-        BABYLON.Tools.CreateScreenshotUsingRenderTarget(engine, scene.activeCamera!, { precision: 1 });
+        Tools.CreateScreenshotUsingRenderTarget(engine, scene.activeCamera!, { precision: 1 });
     } else if (e.key == "f") {
         console.log(Math.round(engine.getFps()));
     } else if (e.key == " ") {
@@ -54,13 +56,6 @@ document.addEventListener("keydown", e => {
         }
     }
 });
-
-
-/*window.addEventListener("resize", () => {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    engine.resize();
-});*/
 
 scene.executeWhenReady(() => {
     engine.loadingScreen.hideLoadingUI();
